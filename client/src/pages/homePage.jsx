@@ -5,7 +5,7 @@ function Home() {
     return (
         <div style={styles.container}>
             <header style={styles.header}>
-                <h1 style={styles.title}>Welcome to Recipe Manager</h1>
+                {/* <h1 style={styles.title}>Welcome to Recipe Manager</h1> */}
                 <p style={styles.subtitle}>Discover and organize your favorite recipes!</p>
                 <button style={styles.button} onClick={() => alert('Get Started!')}>
                     Get Started
@@ -47,24 +47,32 @@ function Home() {
 const styles = {
     container: {
         fontFamily: 'Arial, sans-serif',
-        backgroundColor: '#f9f9f9',
+        backgroundColor: 'none',
         color: '#333',
         textAlign: 'center',
         padding: '20px',
     },
     header: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#007bff57',
         color: 'white',
         padding: '50px 20px',
         borderRadius: '8px',
+        boxShadow: '0 2px 5px black',
+
+
     },
     title: {
         fontSize: '36px',
         margin: '0',
+        color:'white',
+        textShadow: ' 2px 5px black',
+
+
     },
     subtitle: {
         fontSize: '18px',
         margin: '10px 0 20px',
+        color:'white'
     },
     button: {
         padding: '10px 20px',
@@ -74,45 +82,56 @@ const styles = {
         border: 'none',
         borderRadius: '5px',
         cursor: 'pointer',
-        transition: 'background-color 0.3s',
+        
     },
     features: {
         margin: '40px 0',
+        // color:'white'
+
     },
     featuresTitle: {
         fontSize: '28px',
         margin: '20px 0',
+        color:'white'
+
     },
     featuresContainer: {
         display: 'flex',
         justifyContent: 'space-around',
         flexWrap: 'wrap',
+        // color:'white'
+
     },
     feature: {
         width: '30%',
         padding: '20px',
         margin: '10px',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 255, 255, 0.452)',
         borderRadius: '8px',
-        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 2px 5px black',
     },
     testimonial: {
         margin: '40px 0',
         padding: '20px',
-        backgroundColor: '#f1f1f1',
+        backgroundColor: 'transparent',
         borderRadius: '8px',
     },
     testimonialTitle: {
         fontSize: '24px',
         margin: '20px 0',
+        color:'white'
+
     },
     testimonialText: {
         fontStyle: 'italic',
+        color:'white'
+
     },
     footer: {
         marginTop: '20px',
         fontSize: '14px',
-        color: '#777',
+        color:'white'
+
     },
 };
 

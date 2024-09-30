@@ -196,7 +196,7 @@ function RecipesPage() {
       )}
 
       <ul className="flex space-x-4 overflow-x-auto justify-center">
-        <h1>Recipes List</h1>
+        <h1 style={{color:"white"}}>Recipes List</h1>
         {recipes.map((recipe, index) => (
           <li
             key={index}
@@ -210,7 +210,8 @@ function RecipesPage() {
               padding: expandedRecipes[index] ? "10px" : "5px",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center"
+              alignItems: "center",
+              color:"white"
             }}
           >
             <h2 className="text-xl font-bold text-center">{recipe.name}</h2>

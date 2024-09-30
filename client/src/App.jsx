@@ -4,6 +4,7 @@ import Navbar from './components/nav'; // Ensure the path matches your file stru
 import RegistrationPage from './pages/RegistrationPage';
 import RecipesPage from './pages/RecipesPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import Home from './pages/homePage';
 
 function HomePage() {
   return <h1>Welcome to the Recipe App!</h1>;
@@ -15,7 +16,7 @@ function App() {
      <Router>
       <Navbar /> {/* Navbar displayed on all pages */}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Home/>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/recipes" element={<RecipesPage />} />

@@ -29,7 +29,7 @@ function Navbar() {
 const styles = {
   navbar: {
     backgroundColor: '#333',
-    padding: '10px 20px',
+    padding: '25px',
     width: '100%',
     position: 'fixed',
     top: 0,
