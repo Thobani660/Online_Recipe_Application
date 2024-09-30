@@ -1,42 +1,47 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function RegistrationPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+function SignUp() {
+  const [userData, setUserData] = useState({ username: '', password: '' });
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:5000/register', { username, password });
-      alert('Registration successful');
-    } catch (error) {
-      console.error(error);
-    }
+    axios.post('http://localhost:5000/register', userData)
+      .then(response => setMessage(response.data.message))
+      .catch(error => setMessage(error.response.data.error));
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl">Register</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="p-6 bg-white rounded-lg shadow-md max-w-sm mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+      <form onSubmit={handleRegister}>
         <input
           type="text"
           placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="block mb-2"
+          value={userData.username}
+          onChange={(e) => setUserData({ ...userData, username: e.target.value })}
+          required
+          className="block w-full mb-3 p-2 border rounded shadow-sm"
         />
         <input
           type="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="block mb-2"
+          value={userData.password}
+          onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+          required
+          className="block w-full mb-3 p-2 border rounded shadow-sm"
         />
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4">Register</button>
+        <button
+          type="submit"
+          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+        >
+          Register
+        </button>
       </form>
+      {message && <p className="mt-4 text-center">{message}</p>}
     </div>
   );
 }
 
-export default RegistrationPage;
+export default SignUp;

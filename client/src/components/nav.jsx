@@ -1,3 +1,4 @@
+// nav.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -26,6 +27,12 @@ const styles = {
   navbar: {
     backgroundColor: '#333',
     padding: '10px 20px',
+    width: '100%',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: 1000,
+    
   },
   navList: {
     display: 'flex',
@@ -45,4 +52,4 @@ const styles = {
   }
 };
 
-export default Navbar;
+export default Navbar; // Ensure this line is present
