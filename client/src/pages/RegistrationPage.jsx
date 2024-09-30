@@ -1,47 +1,114 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-function SignUp() {
-  const [userData, setUserData] = useState({ username: '', password: '' });
-  const [message, setMessage] = useState('');
+function SignUpForm() {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    axios.post('http://localhost:5000/register', userData)
-      .then(response => setMessage(response.data.message))
-      .catch(error => setMessage(error.response.data.error));
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Here you can add your registration logic (e.g., API call)
+        if (!username || !email || !password) {
+            setError('Please fill in all fields');
+        } else {
+            setError('');
+            console.log('Submitted:', { username, email, password });
+            // Add your sign-up logic here (e.g., API call)
+        }
+    };
 
-  return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-sm mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={userData.username}
-          onChange={(e) => setUserData({ ...userData, username: e.target.value })}
-          required
-          className="block w-full mb-3 p-2 border rounded shadow-sm"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={userData.password}
-          onChange={(e) => setUserData({ ...userData, password: e.target.value })}
-          required
-          className="block w-full mb-3 p-2 border rounded shadow-sm"
-        />
-        <button
-          type="submit"
-          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
-        >
-          Register
-        </button>
-      </form>
-      {message && <p className="mt-4 text-center">{message}</p>}
-    </div>
-  );
+    return (
+        <div style={styles.container}>
+            <h2 style={styles.header}>Sign Up</h2>
+            {error && <p style={styles.error}>{error}</p>}
+            <form onSubmit={handleSubmit} style={styles.form}>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    style={styles.input}
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={styles.input}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    style={styles.input}
+                />
+                <button type="submit" style={styles.button}>
+                    Sign Up
+                </button>
+            </form>
+            <p style={styles.footer}>
+                Already have an account? <a href="/signin" style={styles.link}>Sign In</a>
+            </p>
+        </div>
+    );
 }
 
-export default SignUp;
+const styles = {
+    container: {
+        width: '300px',
+        margin: '50px auto',
+        padding: '20px',
+        borderRadius: '10px',
+        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#fff',
+        textAlign: 'center',
+    },
+    header: {
+        marginBottom: '20px',
+        fontSize: '24px',
+        color: '#333',
+    },
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    input: {
+        marginBottom: '15px',
+        padding: '10px',
+        borderRadius: '5px',
+        border: '1px solid #ccc',
+        fontSize: '16px',
+        outline: 'none',
+        transition: 'border-color 0.3s',
+    },
+    button: {
+        padding: '10px',
+        borderRadius: '5px',
+        border: 'none',
+        backgroundColor: '#007bff',
+        color: 'white',
+        fontSize: '16px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s',
+    },
+    buttonHover: {
+        backgroundColor: '#0056b3',
+    },
+    error: {
+        color: 'red',
+        marginBottom: '10px',
+    },
+    footer: {
+        marginTop: '20px',
+        fontSize: '14px',
+        color: '#777',
+    },
+    link: {
+        color: '#007bff',
+        textDecoration: 'none',
+    },
+};
+
+export default SignUpForm;

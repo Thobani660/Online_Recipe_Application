@@ -11,7 +11,8 @@ function HomePage() {
 
 function App() {
   return (
-    <Router>
+   <div style={{ paddingTop: '60px' }}>
+     <Router>
       <Navbar /> {/* Navbar displayed on all pages */}
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -21,6 +22,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       </Routes>
     </Router>
+   </div>
   );
 }
 

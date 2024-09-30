@@ -7,6 +7,9 @@ function Navbar() {
     <nav style={styles.navbar}>
       <ul style={styles.navList}>
         <li style={styles.navItem}>
+          <Link to="/" style={styles.navLink}>Home</Link>
+        </li>
+        <li style={styles.navItem}>
           <Link to="/login" style={styles.navLink}>Login</Link>
         </li>
         <li style={styles.navItem}>
@@ -32,7 +35,6 @@ const styles = {
     top: 0,
     left: 0,
     zIndex: 1000,
-    
   },
   navList: {
     display: 'flex',
@@ -52,4 +54,4 @@ const styles = {
   }
 };
 
-export default Navbar; // Ensure this line is present
+export default Navbar;
