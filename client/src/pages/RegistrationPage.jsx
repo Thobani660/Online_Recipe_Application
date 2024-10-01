@@ -19,8 +19,8 @@ function SignUpForm() {
 
         try {
             await axios.post('http://localhost:3000/register', { username, password });
-            alert('Registration successful!'); // Alert on successful registration
-            navigate('/login'); // Redirect to login after successful registration
+            alert('Registration successful!');
+            navigate('/login');
         } catch (err) {
             setError('User already exists. Please choose a different username.');
         }
@@ -58,7 +58,6 @@ function SignUpForm() {
     );
 }
 
-// Styles for the SignUpForm component
 const styles = {
     container: {
         maxWidth: '400px',

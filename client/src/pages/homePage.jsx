@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Home() {
-    const [showButtons, setShowButtons] = useState(false); // State to manage the visibility of buttons
+    const [showButtons, setShowButtons] = useState(false); 
 
     const handleGetStarted = () => {
         alert("getStarted")
-        setShowButtons(!showButtons); // Toggle visibility of buttons
+        setShowButtons(!showButtons); 
     };
 
     return (
@@ -19,7 +19,7 @@ function Home() {
                 </button>
             </header>
 
-            {showButtons && ( // Show buttons if the state is true
+            {showButtons && (
                 <div style={styles.buttonContainer}>
                     <Link to="/login">
                         <button style={{ ...styles.button, backgroundColor: '#007bff' }}>

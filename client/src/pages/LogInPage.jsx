@@ -20,7 +20,7 @@ function SignInForm() {
         try {
             const response = await axios.post('http://localhost:3000/login', { username, password });
             localStorage.setItem('token', response.data.token);
-            alert('Login successful!'); // Alert on successful login
+            alert('Login successful!');
             navigate('/recipes'); // Redirect to recipes page after login
         } catch (err) {
             setError('Invalid credentials. Please try again.');

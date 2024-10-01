@@ -1,68 +1,55 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
+const Sequelize = require('sequelize');
+const bodyParser = require('body-parser');
 
+// Initialize app
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Middlewares
 app.use(cors());
 app.use(bodyParser.json());
 
-// Database setup
-const db = new sqlite3.Database(':memory:');
-
-db.serialize(() => {
-    db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT)");
+// Initialize SQLite3 with Sequelize
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './database.sqlite'
 });
 
-// Sign Up Endpoint
-app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
-    console.log('Sign Up Data:', req.body); // Log incoming data
-
-    if (!username || !password) {
-        return res.status(400).send({ message: 'Please fill in all fields' });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    db.run("INSERT INTO users (username, password) VALUES (?, ?)", [username, hashedPassword], function (err) {
-        if (err) {
-            return res.status(400).send({ message: 'User already exists' });
-        }
-        res.status(201).send({ id: this.lastID, username });
-    });
+// Define a Recipe model
+const Recipe = sequelize.define('Recipe', {
+  name: Sequelize.STRING,
+  category: Sequelize.STRING,
+  ingredients: Sequelize.TEXT,
+  instructions: Sequelize.TEXT
 });
 
-// Sign In Endpoint
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    console.log('Login Data:', req.body); // Log incoming data
+// Sync the database
+sequelize.sync().then(() => console.log('Database synced'));
 
-    if (!username || !password) {
-        return res.status(400).send({ message: 'Please fill in all fields' });
-    }
+// Routes
+app.get('/recipes', async (req, res) => {
+  try {
+    const recipes = await Recipe.findAll();
+    res.json(recipes);
+  } catch (err) {
+    res.status(500).send('Error fetching recipes');
+  }
+});
 
-    db.get("SELECT * FROM users WHERE username = ?", [username], async (err, user) => {
-        if (err || !user) {
-            return res.status(401).send({ message: 'Invalid credentials' });
-        }
-
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
-            return res.status(401).send({ message: 'Invalid credentials' });
-        }
-
-        const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
-        res.json({ token });
-    });
+// Add a recipe (POST request)
+app.post('/recipes', async (req, res) => {
+  const { name, category, ingredients, instructions } = req.body;
+  try {
+    const newRecipe = await Recipe.create({ name, category, ingredients, instructions });
+    res.json(newRecipe);
+  } catch (err) {
+    res.status(500).send('Error adding recipe');
+  }
 });
 
 // Start the server
+const PORT = 5000;
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });

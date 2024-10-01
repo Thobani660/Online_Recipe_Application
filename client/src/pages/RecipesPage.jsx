@@ -16,9 +16,8 @@ function RecipesPage() {
   const [showForm, setShowForm] = useState(false);
   const [expandedRecipes, setExpandedRecipes] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const [editIndex, setEditIndex] = useState(null); // State to track which recipe is being edited
+  const [editIndex, setEditIndex] = useState(null);
 
-  // Fetch recipes from localStorage or from server
   useEffect(() => {
     const storedRecipes = JSON.parse(localStorage.getItem('recipes')) || [];
     setRecipes(storedRecipes);
@@ -36,7 +35,7 @@ function RecipesPage() {
     setRecipes(updatedRecipes);
     localStorage.setItem('recipes', JSON.stringify(updatedRecipes));
 
-    // Clear form and hide the form
+    
     setNewRecipe({
       name: '',
       picture: '',
@@ -54,12 +53,11 @@ function RecipesPage() {
     e.preventDefault();
 
     const updatedRecipes = [...recipes];
-    updatedRecipes[editIndex] = newRecipe; // Update the recipe at editIndex
+    updatedRecipes[editIndex] = newRecipe; 
 
     setRecipes(updatedRecipes);
     localStorage.setItem('recipes', JSON.stringify(updatedRecipes));
 
-    // Clear form and reset states
     setNewRecipe({
       name: '',
       picture: '',
@@ -84,25 +82,25 @@ function RecipesPage() {
   const toggleRecipeDetails = (index) => {
     setExpandedRecipes((prevState) => ({
       ...prevState,
-      [index]: !prevState[index] // Toggle the expansion for the clicked recipe
+      [index]: !prevState[index] 
     }));
   };
 
   const startEditRecipe = (index) => {
-    setNewRecipe(recipes[index]); // Set the newRecipe state to the recipe being edited
+    setNewRecipe(recipes[index]); 
     setEditIndex(index);
-    setIsEditing(true); // Set editing mode to true
-    setShowForm(true); // Show the form
+    setIsEditing(true); 
+    setShowForm(true); 
   };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6 text-indigo-600 text-center">Recipe Manager</h1>
+      <h1  style={{color:"white"}}>Recipe Manager</h1>
 
       <button
         onClick={() => {
           setShowForm(true);
-          setIsEditing(false); // Reset editing state
+          setIsEditing(false); 
         }}
         className="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition mb-4"
       >
@@ -147,34 +145,28 @@ function RecipesPage() {
             />
             </div>
             <div>
-            {/* <input
+            <input
               type="text"
               placeholder="Category"
               value={newRecipe.category}
               onChange={(e) => setNewRecipe({ ...newRecipe, category: e.target.value })}
               className="block w-full mb-3 p-2 border rounded shadow-sm"
-            /> */}
-            {/* <input
+            />
+            <input
               type="number"
               placeholder="Prep Time (mins)"
               value={newRecipe.prepTime}
               onChange={(e) => setNewRecipe({ ...newRecipe, prepTime: e.target.value })}
               className="block w-full mb-3 p-2 border rounded shadow-sm"
-            /> */}
-            {/* <input
-              type="number"
-              placeholder="Cook Time (mins)"
-              value={newRecipe.cookTime}
-              onChange={(e) => setNewRecipe({ ...newRecipe, cookTime: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
-            /> */}
-            {/* <input
+            />
+           /
+            <input
               type="number"
               placeholder="Servings"
               value={newRecipe.servings}
               onChange={(e) => setNewRecipe({ ...newRecipe, servings: e.target.value })}
               className="block w-full mb-3 p-2 border rounded shadow-sm"
-            /> */}
+            />
             </div>
            </div>
             <button
@@ -216,7 +208,7 @@ function RecipesPage() {
           >
             <h2 className="text-xl font-bold text-center">{recipe.name}</h2>
             {expandedRecipes[index] && (
-              <div className="text-center">
+              <div className="text-center" style={{backgroundColor:"grey"}}>
                 {recipe.picture && (
                   <img src={recipe.picture} alt={recipe.name} className="w-full h-32 object-cover rounded mb-2" />
                 )}
@@ -229,8 +221,8 @@ function RecipesPage() {
                 <div className="flex space-x-2">
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent click from toggling details again
-                      startEditRecipe(index); // Start editing the selected recipe
+                      e.stopPropagation(); 
+                      startEditRecipe(index); 
                     }}
                     className="bg-blue-500 text-white py-1 px-2 mt-2 rounded hover:bg-blue-600 transition"
                   >
@@ -238,7 +230,7 @@ function RecipesPage() {
                   </button>
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent click from toggling details again
+                      e.stopPropagation(); 
                       handleDeleteRecipe(index);
                     }}
                     className="bg-red-500 text-white py-1 px-2 mt-2 rounded hover:bg-red-600 transition"
