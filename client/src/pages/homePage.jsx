@@ -1,16 +1,38 @@
-// Home.jsx
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Home() {
+    const [showButtons, setShowButtons] = useState(false); // State to manage the visibility of buttons
+
+    const handleGetStarted = () => {
+        alert("getStarted")
+        setShowButtons(!showButtons); // Toggle visibility of buttons
+    };
+
     return (
         <div style={styles.container}>
             <header style={styles.header}>
                 {/* <h1 style={styles.title}>Welcome to Recipe Manager</h1> */}
                 <p style={styles.subtitle}>Discover and organize your favorite recipes!</p>
-                <button style={styles.button} onClick={() => alert('Get Started!')}>
+                <button style={styles.button} onClick={handleGetStarted}>
                     Get Started
                 </button>
             </header>
+
+            {showButtons && ( // Show buttons if the state is true
+                <div style={styles.buttonContainer}>
+                    <Link to="/login">
+                        <button style={{ ...styles.button, backgroundColor: '#007bff' }}>
+                            Sign In
+                        </button>
+                    </Link>
+                    <Link to="/register">
+                        <button style={{ ...styles.button, backgroundColor: '#28a745' }}>
+                            Register
+                        </button>
+                    </Link>
+                </div>
+            )}
 
             <section style={styles.features}>
                 <h2 style={styles.featuresTitle}>Features</h2>
@@ -58,57 +80,47 @@ const styles = {
         padding: '50px 20px',
         borderRadius: '8px',
         boxShadow: '0 2px 5px black',
-
-
-    },
-    title: {
-        fontSize: '36px',
-        margin: '0',
-        color:'white',
-        textShadow: ' 2px 5px black',
-
-
     },
     subtitle: {
         fontSize: '18px',
         margin: '10px 0 20px',
-        color:'white'
+        color: 'white'
     },
     button: {
         padding: '10px 20px',
         fontSize: '16px',
         color: 'white',
-        backgroundColor: '#28a745',
         border: 'none',
         borderRadius: '5px',
         cursor: 'pointer',
-        
+        backgroundColor:'grey'
+    },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '20px',
     },
     features: {
         margin: '40px 0',
-        // color:'white'
-
     },
     featuresTitle: {
         fontSize: '28px',
         margin: '20px 0',
-        color:'white'
-
+        color: 'lightgreen'
     },
     featuresContainer: {
         display: 'flex',
         justifyContent: 'space-around',
         flexWrap: 'wrap',
-        // color:'white'
-
+        color: 'white'
     },
     feature: {
         width: '30%',
         padding: '20px',
         margin: '10px',
-        backgroundColor: 'rgba(255, 255, 255, 0.452)',
+        backgroundColor: 'purple',
         borderRadius: '8px',
-        boxShadow: '0 2px 5px black',
+        boxShadow: '0 2px 5px white',
     },
     testimonial: {
         margin: '40px 0',
@@ -119,19 +131,22 @@ const styles = {
     testimonialTitle: {
         fontSize: '24px',
         margin: '20px 0',
-        color:'white'
-
+        color: 'lightgreen'
     },
     testimonialText: {
         fontStyle: 'italic',
-        color:'white'
-
+        color: 'black',
+        backgroundColor: 'orange',
+        width: 'max-content',
+        padding: "10px",
+        borderRadius: "5px",
+        boxShadow: '0 2px 5px white',
+        marginLeft: "250px"
     },
     footer: {
         marginTop: '20px',
         fontSize: '14px',
-        color:'white'
-
+        color: 'silver'
     },
 };
 

@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignUpForm() {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you can add your registration logic (e.g., API call)
-        if (!username || !email || !password) {
+        setError('');
+
+        if (!username || !password) {
             setError('Please fill in all fields');
-        } else {
-            setError('');
-            console.log('Submitted:', { username, email, password });
-            // Add your sign-up logic here (e.g., API call)
+            return;
+        }
+
+        try {
+            await axios.post('http://localhost:3000/register', { username, password });
+            alert('Registration successful!'); // Alert on successful registration
+            navigate('/login'); // Redirect to login after successful registration
+        } catch (err) {
+            setError('User already exists. Please choose a different username.');
         }
     };
 
@@ -29,13 +37,7 @@ function SignUpForm() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     style={styles.input}
-                />
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    style={styles.input}
+                    required
                 />
                 <input
                     type="password"
@@ -43,72 +45,69 @@ function SignUpForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     style={styles.input}
+                    required
                 />
                 <button type="submit" style={styles.button}>
                     Sign Up
                 </button>
             </form>
             <p style={styles.footer}>
-                Already have an account? <a href="/signin" style={styles.link}>Sign In</a>
+                Already have an account? <a href="/login" style={styles.link}>Sign In</a>
             </p>
         </div>
     );
 }
 
+// Styles for the SignUpForm component
 const styles = {
     container: {
-        width: '300px',
-        margin: '50px auto',
+        maxWidth: '400px',
+        margin: 'auto',
         padding: '20px',
-        borderRadius: '10px',
-        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
         backgroundColor: '#fff',
-        textAlign: 'center',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        marginTop: '100px',
     },
     header: {
+        textAlign: 'center',
         marginBottom: '20px',
-        fontSize: '24px',
-        color: '#333',
+    },
+    error: {
+        color: 'red',
+        textAlign: 'center',
+        marginBottom: '10px',
     },
     form: {
         display: 'flex',
         flexDirection: 'column',
     },
     input: {
-        marginBottom: '15px',
+        marginBottom: '10px',
         padding: '10px',
-        borderRadius: '5px',
         border: '1px solid #ccc',
+        borderRadius: '5px',
         fontSize: '16px',
-        outline: 'none',
-        transition: 'border-color 0.3s',
     },
     button: {
         padding: '10px',
-        borderRadius: '5px',
-        border: 'none',
         backgroundColor: '#007bff',
         color: 'white',
+        border: 'none',
+        borderRadius: '5px',
         fontSize: '16px',
         cursor: 'pointer',
-        transition: 'background-color 0.3s',
-    },
-    buttonHover: {
-        backgroundColor: '#0056b3',
-    },
-    error: {
-        color: 'red',
-        marginBottom: '10px',
+        transition: 'background-color 0.3s ease',
     },
     footer: {
+        textAlign: 'center',
         marginTop: '20px',
-        fontSize: '14px',
-        color: '#777',
     },
     link: {
         color: '#007bff',
         textDecoration: 'none',
-    },
+    }
 };
 
 export default SignUpForm;

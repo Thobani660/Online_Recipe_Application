@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignInForm() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you can add your login logic (e.g., API call)
-        if (!email || !password) {
+        setError('');
+
+        if (!username || !password) {
             setError('Please fill in all fields');
-        } else {
-            setError('');
-            console.log('Submitted:', { email, password });
-            // Add your sign-in logic here (e.g., API call)
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:3000/login', { username, password });
+            localStorage.setItem('token', response.data.token);
+            alert('Login successful!'); // Alert on successful login
+            navigate('/recipes'); // Redirect to recipes page after login
+        } catch (err) {
+            setError('Invalid credentials. Please try again.');
         }
     };
 
@@ -23,11 +33,12 @@ function SignInForm() {
             {error && <p style={styles.error}>{error}</p>}
             <form onSubmit={handleSubmit} style={styles.form}>
                 <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     style={styles.input}
+                    required
                 />
                 <input
                     type="password"
@@ -35,81 +46,69 @@ function SignInForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     style={styles.input}
+                    required
                 />
                 <button type="submit" style={styles.button}>
                     Sign In
                 </button>
             </form>
             <p style={styles.footer}>
-                Don't have an account? <a href="/signup" style={styles.link}>Sign Up</a>
+                Don't have an account? <a href="/register" style={styles.link}>Sign Up</a>
             </p>
         </div>
     );
 }
 
+// Styles for the SignInForm component
 const styles = {
     container: {
-        width: '300px',
-        margin: '50px auto',
+        maxWidth: '400px',
+        margin: 'auto',
         padding: '20px',
-        borderRadius: '10px',
-        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
         backgroundColor: '#fff',
-        textAlign: 'center',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        marginTop: '100px',
     },
     header: {
+        textAlign: 'center',
         marginBottom: '20px',
-        fontSize: '24px',
-        color: '#333',
+    },
+    error: {
+        color: 'red',
+        textAlign: 'center',
+        marginBottom: '10px',
     },
     form: {
         display: 'flex',
         flexDirection: 'column',
     },
     input: {
-        marginBottom: '15px',
+        marginBottom: '10px',
         padding: '10px',
-        borderRadius: '5px',
         border: '1px solid #ccc',
-        fontSize: '16px',
-        outline: 'none',
-        transition: 'border-color 0.3s',
-    },
-    input: {
-        marginBottom: '15px',
-        padding: '10px',
         borderRadius: '5px',
-        border: '1px solid #ccc',
         fontSize: '16px',
-        outline: 'none',
-        transition: 'border-color 0.3s',
     },
     button: {
         padding: '10px',
-        borderRadius: '5px',
-        border: 'none',
-        backgroundColor: '#28a745',
+        backgroundColor: '#007bff',
         color: 'white',
+        border: 'none',
+        borderRadius: '5px',
         fontSize: '16px',
         cursor: 'pointer',
-        transition: 'background-color 0.3s',
-    },
-    buttonHover: {
-        backgroundColor: '#218838',
-    },
-    error: {
-        color: 'red',
-        marginBottom: '10px',
+        transition: 'background-color 0.3s ease',
     },
     footer: {
+        textAlign: 'center',
         marginTop: '20px',
-        fontSize: '14px',
-        color: '#777',
     },
     link: {
         color: '#007bff',
         textDecoration: 'none',
-    },
+    }
 };
 
 export default SignInForm;
