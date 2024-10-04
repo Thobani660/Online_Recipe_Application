@@ -108,18 +108,51 @@ function RecipesPage() {
       </button>
 
       {showForm && (
-        <div className="mb-6 p-6 bg-white rounded-lg shadow-lg max-w-lg w-full">
-          <h2 className="text-2xl font-semibold mb-4 text-center text-indigo-700">{isEditing ? 'Edit Recipe' : 'Add New Recipe'}</h2>
-          <div style={{width:"400px"}}>
-          <form onSubmit={isEditing ? handleEditRecipe : handleAddRecipe} className="flex flex-col items-center">
-           <div style={{display:'flex'}}>
-           <div>
+  <div style={{
+    marginBottom: "24px",
+    padding: "24px",
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    maxWidth: "600px",
+    width: "100%",
+    margin: "0 auto" // Center the form
+  }}>
+    <h2 style={{
+      fontSize: "24px",
+      fontWeight: "600",
+      marginBottom: "16px",
+      textAlign: "center",
+      color: "#4F46E5" // Indigo color
+    }}>
+      {isEditing ? 'Edit Recipe' : 'Add New Recipe'}
+    </h2>
+    <div style={{ width: "400px" }}>
+      <form onSubmit={isEditing ? handleEditRecipe : handleAddRecipe} style={{
+        display: "flex",
+        flexDirection: "column"
+      }}>
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "16px" // Space between columns
+        }}>
+          <div style={{ flex: 1 }}>
             <input
               type="text"
               placeholder="Recipe Name"
               value={newRecipe.name}
               onChange={(e) => setNewRecipe({ ...newRecipe, name: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
+              style={{
+                width: "100%",
+                padding: "12px",
+                border: "1px solid #D1D5DB", // Light gray border
+                borderRadius: "4px",
+                marginBottom: "16px",
+                fontSize: "16px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                transition: "border-color 0.3s" // Smooth transition for border color
+              }}
               required
             />
             <input
@@ -127,65 +160,133 @@ function RecipesPage() {
               placeholder="Picture URL"
               value={newRecipe.picture}
               onChange={(e) => setNewRecipe({ ...newRecipe, picture: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
+              style={{
+                width: "100%",
+                padding: "12px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                fontSize: "16px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+              }}
             />
             <textarea
               placeholder="Ingredients"
               value={newRecipe.ingredients}
               onChange={(e) => setNewRecipe({ ...newRecipe, ingredients: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
+              style={{
+                width: "100%",
+                padding: "12px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                fontSize: "16px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+              }}
               required
             />
             <textarea
               placeholder="Instructions"
               value={newRecipe.instructions}
               onChange={(e) => setNewRecipe({ ...newRecipe, instructions: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
+              style={{
+                width: "100%",
+                padding: "12px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                fontSize: "16px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+              }}
               required
             />
-            </div>
-            <div>
+          </div>
+          <div style={{ flex: 1 }}>
             <input
               type="text"
               placeholder="Category"
               value={newRecipe.category}
               onChange={(e) => setNewRecipe({ ...newRecipe, category: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
+              style={{
+                width: "100%",
+                padding: "12px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                fontSize: "16px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+              }}
             />
             <input
               type="number"
               placeholder="Prep Time (mins)"
               value={newRecipe.prepTime}
               onChange={(e) => setNewRecipe({ ...newRecipe, prepTime: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
+              style={{
+                width: "100%",
+                padding: "12px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                fontSize: "16px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+              }}
             />
-           /
             <input
               type="number"
               placeholder="Servings"
               value={newRecipe.servings}
               onChange={(e) => setNewRecipe({ ...newRecipe, servings: e.target.value })}
-              className="block w-full mb-3 p-2 border rounded shadow-sm"
+              style={{
+                width: "100%",
+                padding: "12px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                fontSize: "16px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+              }}
             />
-            </div>
-           </div>
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
-            >
-              {isEditing ? 'Update Recipe' : 'Add Recipe'}
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowForm(false)}
-              className="w-full mt-2 bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
-            >
-              Cancel
-            </button>
-          </form>
           </div>
         </div>
-      )}
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "12px",
+            backgroundColor: "#4F46E5", // Indigo color
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontSize: "16px",
+            transition: "background-color 0.3s"
+          }}
+        >
+          {isEditing ? 'Update Recipe' : 'Add Recipe'}
+        </button>
+        <button
+          type="button"
+          onClick={() => setShowForm(false)}
+          style={{
+            width: "100%",
+            marginTop: "8px",
+            padding: "12px",
+            backgroundColor: "#EF4444", // Red color
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontSize: "16px",
+            transition: "background-color 0.3s"
+          }}
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+)}
 
       <ul className="flex space-x-4 overflow-x-auto justify-center">
         <h1 style={{color:"white"}}>Recipes List</h1>

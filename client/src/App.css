@@ -22,3 +22,87 @@
     display: block;
   }
 }
+.form-container {
+  margin-bottom: 24px;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto; /* Center the form */
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #4F46E5; /* Indiglo color */
+}
+
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Space between columns */
+}
+
+.input-column {
+  flex: 1;
+  min-width: 200px; /* Minimum width for responsiveness */
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #D1D5DB; /* Light gray border */
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.input-field:focus {
+  border-color: #4F46E5; /* Indiglo color */
+  outline: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4F46E5; /* Indiglo color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.submit-button:hover {
+  background-color: #4338CA; /* Darker shade of indiglo */
+}
+
+.cancel-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  background-color: #EF4444; /* Red color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.cancel-button:hover {
+  background-color: #DC2626; /* Darker shade of red */
+}
+
