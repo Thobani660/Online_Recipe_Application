@@ -29,6 +29,9 @@ function Navbar() {
           <li style={styles.navItem}>
             <Link to="/register" style={styles.navLink}>Register</Link>
           </li>
+          <li style={styles.navItem1}>
+            <Link to="/" style={styles.navLink}>Home</Link>
+          </li>
           <li style={styles.navItem}>
             <Link to="/recipes" style={styles.navLink}>Recipes</Link>
           </li>
@@ -78,6 +81,10 @@ const styles = {
   navItem: {
     margin: '0 10px',
   },
+  // navItem1:{
+  //   backgroundColor:"blue",
+  //   width:"200px"
+  // },
   navLink: {
     color: 'white',
     textDecoration: 'none',

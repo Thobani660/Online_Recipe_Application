@@ -103,6 +103,6 @@
 }
 
 .cancel-button:hover {
-  background-color: #DC2626; /* Darker shade of red */
+  background-color: rgb(59, 59, 2); /* Darker shade of red */
 }
 
